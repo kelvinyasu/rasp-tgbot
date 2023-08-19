@@ -16,6 +16,9 @@ GIT_COMMIT_HASH = None
 # File to store chat IDs
 CHAT_ID_FILE = '/usr/local/bin/tgbot/chat_ids.txt'
 
+# Restart Service Scripts
+script_path = '/usr/local/bin/tgbot/restartservice.sh'
+
 
 def read_bot_token():
     with open('/usr/local/bin/tgbot/bot.txt', 'r') as f:
@@ -105,8 +108,7 @@ def upgrade_bot():
             f.write(current_bot_txt)
 
         # Schedule a delayed service restart with 'at' command
-        subprocess.call(['echo', 'systemctl restart telegram_bot.service | at now + 1 minute 2>/tmp/at_error.log'], shell=True)
-        subprocess.call(['echo', 'systemctl restart telegram_bot.service | at now + 1 minute >/tmp/cmd_error.log'], shell=True)
+        subprocess.call(['at', 'now + 1 minute', '-f', script_path])
 
         return f"Bot upgraded successfully to version {SCRIPT_VERSION} with hash {GIT_COMMIT_HASH}."
     except Exception as e:
