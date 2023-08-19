@@ -119,10 +119,3 @@ def upgrade_bot():
     except Exception as e:
         return f"Bot upgrade failed: {str(e)}"
 
-# "Writing new function with telepot to send message to all user on chat_ids.txt"
-def send_message_to_all_users(message):
-    with open(CHAT_ID_FILE, 'r') as f:
-        for line in f:
-            chat_id = line.strip()
-            bot.sendMessage(chat_id, message)
-
