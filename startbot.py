@@ -6,6 +6,8 @@ import syslog
 from telepot.loop import MessageLoop
 from telegram_bot import read_bot_token, handle_command
 
+# File to store chat IDs
+CHAT_ID_FILE = '/usr/local/bin/tgbot/chat_ids.txt'
 
 # "Writing new function with telepot to send message to all user on chat_ids.txt"
 def send_message_to_all_users(message):
