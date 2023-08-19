@@ -22,6 +22,21 @@ def get_chat_id(message):
     chat_id = message['chat']['id']
     return chat_id
 
+def log_chat_id(chat_id):
+    # Read existing chat IDs from the file
+    existing_chat_ids = set()
+    try:
+        with open(CHAT_ID_FILE, 'r') as f:
+            existing_chat_ids = set(line.strip() for line in f)
+    except FileNotFoundError:
+        pass
+
+    # Check if the chat ID is already in the set of existing IDs
+    if str(chat_id) not in existing_chat_ids:
+        # Append the chat ID to the chat IDs file
+        with open(CHAT_ID_FILE, 'a') as f:
+            f.write(str(chat_id) + '\n')
+
 def handle_command(command, chat_id):
     if command == '/roll':
         return random.randint(1, 6)
