@@ -17,6 +17,11 @@ def read_bot_token():
     with open('/usr/local/bin/tgbot/bot.txt', 'r') as f:
         return f.read().strip()
 
+def get_chat_id(message):
+    # Extract the chat_id from the message dictionary
+    chat_id = message['chat']['id']
+    return chat_id
+
 def handle_command(command, chat_id):
     if command == '/roll':
         return random.randint(1, 6)
@@ -29,11 +34,13 @@ def handle_command(command, chat_id):
         return get_network_info()
     elif command == '/syslog':
         return get_last_syslog_lines(20)
+    elif command == '/chatid':
+        return f"Your chat ID is: {chat_id}"
     elif command == '/upgrade':
         return upgrade_bot()
     else:
         hostname = socket.gethostname()
-        return f"Hello, Unknown command on {hostname}. Use /roll, /time, /reboot, /network, /syslog, or /upgrade."
+        return f"Hello, Unknown command on {hostname}. Use /chatid, /roll, /time, /reboot, /network, /syslog, or /upgrade."
 
 def get_network_info():
     interfaces = subprocess.check_output(['ip', 'addr', 'show']).decode('utf-8')
