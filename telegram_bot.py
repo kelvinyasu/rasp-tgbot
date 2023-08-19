@@ -67,7 +67,7 @@ def upgrade_bot():
             f.write(current_bot_txt)
 
         # Restart the service after upgrading
-        subprocess.call(['systemctl', 'restart', 'telegram_bot'])
+        subprocess.call(['systemctl', 'restart', 'telegram_bot', '&'])
 
         return "Bot upgraded successfully."
     except Exception as e:
