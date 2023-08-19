@@ -6,6 +6,7 @@ import datetime
 import telepot
 import syslog
 import os
+import random
 
 # Your script's version number
 SCRIPT_VERSION = "0.1"
