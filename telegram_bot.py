@@ -8,14 +8,8 @@ import syslog
 import os
 import random
 
-# Your script's version number
-SCRIPT_VERSION = "0.1"
-
 # Variable to store the Git commit hash
 GIT_COMMIT_HASH = None
-
-# File to store chat IDs
-CHAT_ID_FILE = '/usr/local/bin/tgbot/chat_ids.txt'
 
 # Restart Service Scripts
 script_path = '/usr/local/bin/tgbot/restartservice.sh'

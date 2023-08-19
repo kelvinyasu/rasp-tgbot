@@ -6,6 +6,9 @@ import syslog
 from telepot.loop import MessageLoop
 from telegram_bot import read_bot_token, handle_command
 
+# Your script's version number
+SCRIPT_VERSION = "0.2"
+
 # File to store chat IDs
 CHAT_ID_FILE = '/usr/local/bin/tgbot/chat_ids.txt'
 
