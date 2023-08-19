@@ -107,9 +107,13 @@ def upgrade_bot():
         with open('/usr/local/bin/tgbot/bot.txt', 'w') as f:
             f.write(current_bot_txt)
 
+        # Make the script file executable
+        subprocess.call(['chmod', '+x', script_path])
+
+        
         # Schedule a delayed service restart with 'at' command
         subprocess.call(['at', 'now + 1 minute', '-f', script_path])
 
-        return f"Bot upgraded successfully to version {SCRIPT_VERSION} with hash {GIT_COMMIT_HASH}."
+        return f"Bot scheduled upgrade from version {SCRIPT_VERSION} with upcoming GIT hash {GIT_COMMIT_HASH}."
     except Exception as e:
         return f"Bot upgrade failed: {str(e)}"
