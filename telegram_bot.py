@@ -8,6 +8,12 @@ import syslog
 import os
 import random
 
+# Your script's version number
+SCRIPT_VERSION = "0.2"
+
+# File to store chat IDs
+CHAT_ID_FILE = '/usr/local/bin/tgbot/chat_ids.txt'
+
 # Variable to store the Git commit hash
 GIT_COMMIT_HASH = None
 
