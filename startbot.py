@@ -4,7 +4,15 @@ import time
 import telepot
 import syslog
 from telepot.loop import MessageLoop
-from telegram_bot import read_bot_token, handle_command, send_message_to_all_users
+from telegram_bot import read_bot_token, handle_command
+
+
+# "Writing new function with telepot to send message to all user on chat_ids.txt"
+def send_message_to_all_users(message):
+    with open(CHAT_ID_FILE, 'r') as f:
+        for line in f:
+            chat_id = line.strip()
+            bot.sendMessage(chat_id, message)
 
 def handle(msg):
     chat_id = msg['chat']['id']
