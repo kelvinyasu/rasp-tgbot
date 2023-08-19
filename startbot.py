@@ -18,8 +18,12 @@ def handle(msg):
 bot_token = read_bot_token()
 bot = telepot.Bot(bot_token)
 
+# Broadbast bot service started
+send_message_to_all_users('Bot service started')
+
 MessageLoop(bot, handle).run_as_thread()
 syslog.syslog('Bot service started')
 
 while True:
     time.sleep(10)
+

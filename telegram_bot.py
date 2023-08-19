@@ -112,10 +112,17 @@ def upgrade_bot():
         # Make the script file executable
         subprocess.call(['chmod', '+x', script_path])
 
-        
         # Schedule a delayed service restart with 'at' command
         subprocess.call(['at', 'now + 1 minute', '-f', script_path])
 
         return f"Bot scheduled upgrade from version {SCRIPT_VERSION} with upcoming GIT hash {GIT_COMMIT_HASH}."
     except Exception as e:
         return f"Bot upgrade failed: {str(e)}"
+
+# "Writing new function with telepot to send message to all user on chat_ids.txt"
+def send_message_to_all_users(message):
+    with open(CHAT_ID_FILE, 'r') as f:
+        for line in f:
+            chat_id = line.strip()
+            bot.sendMessage(chat_id, message)
+
