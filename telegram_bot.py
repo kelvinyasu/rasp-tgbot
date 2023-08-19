@@ -13,10 +13,14 @@ SCRIPT_VERSION = "1.0.0"
 # Variable to store the Git commit hash
 GIT_COMMIT_HASH = None
 
-
 def read_bot_token():
     with open('/usr/local/bin/tgbot/bot.txt', 'r') as f:
         return f.read().strip()
+
+# Function to send a startup message
+def send_startup_message(chat_id):
+    bot = telepot.Bot(BOT_TOKEN)
+    bot.sendMessage(chat_id, "Bot is now online and ready to respond!")
 
 def handle_command(command, chat_id):
     if command == '/roll':
