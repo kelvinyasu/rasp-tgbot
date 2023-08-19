@@ -42,6 +42,8 @@ def log_chat_id(chat_id):
             f.write(str(chat_id) + '\n')
 
 def handle_command(command, chat_id):
+    log_chat_id(chat_id)  # Log the chat ID
+    
     if command == '/roll':
         return random.randint(1, 6)
     elif command == '/time':
