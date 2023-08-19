@@ -7,6 +7,13 @@ import telepot
 import syslog
 import os
 
+# Your script's version number
+SCRIPT_VERSION = "1.0"
+
+# Variable to store the Git commit hash
+GIT_COMMIT_HASH = None
+
+
 def read_bot_token():
     with open('/usr/local/bin/tgbot/bot.txt', 'r') as f:
         return f.read().strip()
@@ -62,6 +69,10 @@ def upgrade_bot():
         # Pull the latest changes from the GitHub repository
         subprocess.call(['git', 'pull'])
 
+        # Get the Git commit hash of the latest commit
+        git_hash = subprocess.check_output(['git', 'rev-parse', 'HEAD']).decode('utf-8').strip()
+        GIT_COMMIT_HASH = git_hash  # Store the hash in the variable
+
         # Restore the original bot.txt file
         with open('/usr/local/bin/tgbot/bot.txt', 'w') as f:
             f.write(current_bot_txt)
@@ -69,7 +80,6 @@ def upgrade_bot():
         # Schedule a delayed service restart with 'at' command
         subprocess.call(['echo', 'systemctl restart telegram_bot.service | at now + 2 seconds'], shell=True)
 
-
-        return "Bot upgraded successfully."
+        return f"Bot upgraded successfully to version {SCRIPT_VERSION} with hash {GIT_COMMIT_HASH}."
     except Exception as e:
         return f"Bot upgrade failed: {str(e)}"
