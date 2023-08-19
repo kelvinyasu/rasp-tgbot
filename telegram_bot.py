@@ -56,6 +56,9 @@ def upgrade_bot():
         # Change to the bot's directory
         os.chdir('/usr/local/bin/tgbot')
 
+        # Discard any local changes and reset to the HEAD of the remote repository
+        subprocess.call(['git', 'reset', '--hard', 'HEAD'])
+
         # Pull the latest changes from the GitHub repository
         subprocess.call(['git', 'pull'])
 
