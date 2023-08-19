@@ -5,6 +5,7 @@ import socket
 import datetime
 import telepot
 import syslog
+import os
 
 def read_bot_token():
     with open('/usr/local/bin/tgbot/bot.txt', 'r') as f:
@@ -22,9 +23,11 @@ def handle_command(command, chat_id):
         return get_network_info()
     elif command == '/syslog':
         return get_last_syslog_lines(20)
+    elif command == '/upgrade':
+        return upgrade_bot()
     else:
         hostname = socket.gethostname()
-        return f"Unknown command on {hostname}. Use /roll, /time, /reboot, /network, or /syslog."
+        return f"Unknown command on {hostname}.  Use /roll, /time, /reboot, /network, /syslog, or /upgrade."
 
 def get_network_info():
     interfaces = subprocess.check_output(['ip', 'addr', 'show']).decode('utf-8')
@@ -42,3 +45,27 @@ def get_network_info():
 def get_last_syslog_lines(num_lines):
     syslog_lines = subprocess.check_output(['tail', '-n', str(num_lines), '/var/log/syslog']).decode('utf-8')
     return f"Last {num_lines} lines of syslog:\n{syslog_lines}"
+
+def upgrade_bot():
+    # Save a copy of the current bot.txt file
+    current_bot_txt = None
+    with open('/usr/local/bin/tgbot/bot.txt', 'r') as f:
+        current_bot_txt = f.read()
+
+    try:
+        # Change to the bot's directory
+        os.chdir('/usr/local/bin/tgbot')
+
+        # Pull the latest changes from the GitHub repository
+        subprocess.call(['git', 'pull'])
+
+        # Restore the original bot.txt file
+        with open('/usr/local/bin/tgbot/bot.txt', 'w') as f:
+            f.write(current_bot_txt)
+
+        # Restart the service after upgrading
+        subprocess.call(['systemctl', 'restart', 'telegram_bot'])
+
+        return "Bot upgraded successfully."
+    except Exception as e:
+        return f"Bot upgrade failed: {str(e)}"
