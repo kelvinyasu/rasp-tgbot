@@ -4,7 +4,7 @@ import time
 import telepot
 import syslog
 from telepot.loop import MessageLoop
-from telegram_bot import read_bot_token, handle_command
+from telegram_bot import read_bot_token, handle_command, send_message_to_all_users
 
 def handle(msg):
     chat_id = msg['chat']['id']
