@@ -27,7 +27,7 @@ def handle_command(command, chat_id):
         return upgrade_bot()
     else:
         hostname = socket.gethostname()
-        return f"Unknown command on {hostname}.  Use /roll, /time, /reboot, /network, /syslog, or /upgrade."
+        return f"Hello, Unknown command on {hostname}. Use /roll, /time, /reboot, /network, /syslog, or /upgrade."
 
 def get_network_info():
     interfaces = subprocess.check_output(['ip', 'addr', 'show']).decode('utf-8')
