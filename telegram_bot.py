@@ -8,7 +8,7 @@ import syslog
 import os
 
 # Your script's version number
-SCRIPT_VERSION = "1.0"
+SCRIPT_VERSION = "1.0.0"
 
 # Variable to store the Git commit hash
 GIT_COMMIT_HASH = None
