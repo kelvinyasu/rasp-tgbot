@@ -53,7 +53,8 @@ def handle_command(command, chat_id):
     elif command == '/time':
         return str(datetime.datetime.now())
     elif command == '/reboot':
-        subprocess.call(['sudo', 'reboot'])
+        # Add a 2-second delay before rebooting
+        subprocess.call(['sudo', 'shutdown', '-r', '+2'])
         return "Rebooting..."
     elif command == '/network':
         return get_network_info()
