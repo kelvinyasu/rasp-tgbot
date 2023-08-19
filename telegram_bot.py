@@ -105,7 +105,7 @@ def upgrade_bot():
             f.write(current_bot_txt)
 
         # Schedule a delayed service restart with 'at' command
-        subprocess.call(['echo', 'systemctl restart telegram_bot.service | at now + 1 minutes'], shell=True)
+        subprocess.call(['echo', 'systemctl restart telegram_bot.service | at now + 1 minute'], shell=True)
 
         return f"Bot upgraded successfully to version {SCRIPT_VERSION} with hash {GIT_COMMIT_HASH}."
     except Exception as e:
