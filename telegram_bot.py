@@ -66,8 +66,9 @@ def upgrade_bot():
         with open('/usr/local/bin/tgbot/bot.txt', 'w') as f:
             f.write(current_bot_txt)
 
-        # Restart the service after upgrading
-        subprocess.call(['systemctl', 'restart', 'telegram_bot', '&'])
+        # Schedule a delayed service restart with 'at' command
+        subprocess.call(['echo', 'systemctl restart telegram_bot.service | at now + 2 minutes'], shell=True)
+
 
         return "Bot upgraded successfully."
     except Exception as e:
