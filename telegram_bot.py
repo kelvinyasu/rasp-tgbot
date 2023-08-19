@@ -8,10 +8,14 @@ import syslog
 import os
 
 # Your script's version number
-SCRIPT_VERSION = "1.0.0"
+SCRIPT_VERSION = "0.1"
 
 # Variable to store the Git commit hash
 GIT_COMMIT_HASH = None
+
+# File to store chat IDs
+CHAT_ID_FILE = '/usr/local/bin/tgbot/chat_ids.txt'
+
 
 def read_bot_token():
     with open('/usr/local/bin/tgbot/bot.txt', 'r') as f:
