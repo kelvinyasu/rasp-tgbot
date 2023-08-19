@@ -32,10 +32,10 @@ bot_token = read_bot_token()
 bot = telepot.Bot(bot_token)
 
 # Broadbast bot service started
-send_message_to_all_users('Bot service started')
+send_message_to_all_users('Bot service started (version %s)' % SCRIPT_VERSION)
 
 MessageLoop(bot, handle).run_as_thread()
-syslog.syslog('Bot service started')
+syslog.syslog('Bot service started (version %s)' % SCRIPT_VERSION)
 
 while True:
     time.sleep(10)
