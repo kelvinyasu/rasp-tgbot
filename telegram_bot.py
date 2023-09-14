@@ -9,7 +9,7 @@ import os
 import random
 
 # Your script's version number
-SCRIPT_VERSION = "0.2"
+SCRIPT_VERSION = "0.21"
 
 # File to store chat IDs
 CHAT_ID_FILE = '/usr/local/bin/tgbot/chat_ids.txt'
@@ -54,8 +54,9 @@ def handle_command(command, chat_id):
         return str(datetime.datetime.now())
     elif command == '/reboot':
         # Add a 2-second delay before rebooting
+        subprocess.call(['sudo', 'pkill', 'openvpn'])
         subprocess.call(['sudo', 'shutdown', '-r', '+2'])
-        return "Rebooting..."
+        return "Stop VPN & Rebooting..."
     elif command == '/network':
         return get_network_info()
     elif command == '/syslog':
