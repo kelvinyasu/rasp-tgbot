@@ -9,7 +9,7 @@ import os
 import random
 
 # Your script's version number
-SCRIPT_VERSION = "0.21"
+SCRIPT_VERSION = "0.3"
 
 # File to store chat IDs
 CHAT_ID_FILE = '/usr/local/bin/tgbot/chat_ids.txt'
