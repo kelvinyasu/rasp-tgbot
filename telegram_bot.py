@@ -67,7 +67,7 @@ def handle_command(command, chat_id):
         return upgrade_bot()
     else:
         hostname = socket.gethostname()
-        return f"Hello, Unknown command on {hostname}. Use /chatid, /roll, /time, /reboot, /network, /syslog, or /upgrade."
+        return read_bot_motd() + f"\nUnknown command on {hostname}. Use /chatid, /roll, /time, /reboot, /network, /syslog, or /upgrade."
 
 def get_network_info():
     interfaces = subprocess.check_output(['ip', 'addr', 'show']).decode('utf-8')
@@ -119,4 +119,16 @@ def upgrade_bot():
         return f"Bot scheduled upgrade from version {SCRIPT_VERSION} with upcoming GIT hash {GIT_COMMIT_HASH}."
     except Exception as e:
         return f"Bot upgrade failed: {str(e)}"
+
+def read_bot_motd():
+    motd_path = '/usr/local/bin/tgbot/botmotd.txt'
+    try:
+        with open(motd_path, 'r') as f:
+            # Read the file, filter out lines starting with #, and join them into a single string
+            content = ''.join(line for line in f if not line.strip().startswith('#'))
+        return content.strip()  # Return the content, stripping any extra spaces or newlines
+    except FileNotFoundError:
+        return "MOTD file not found."
+    except Exception as e:
+        return f"Error reading MOTD: {str(e)}"
 
