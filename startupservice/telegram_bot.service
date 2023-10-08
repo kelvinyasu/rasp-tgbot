@@ -1,0 +1,16 @@
+[Unit]
+Description=Telegram Bot Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /usr/local/bin/tgbot/startbot.py
+WorkingDirectory=/usr/local/bin/tgbot
+User=root
+Restart=always
+RestartSec=30
+
+
+SyslogIdentifier=telegram_bot
+
+[Install]
+WantedBy=multi-user.target
