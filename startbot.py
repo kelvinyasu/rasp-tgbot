@@ -18,13 +18,12 @@ def load_whitelist():
 whitelist = load_whitelist()
 
 def send_message_to_all_users(message):
-    if whitelist:
+    if whitelist:  # Check if whitelist is not empty
         for chat_id in whitelist:
             bot.sendMessage(chat_id, message)
     else:
-        # Maybe send a log message or some other notification to indicate
-        # that there's no whitelist
-        pass
+        syslog.syslog('No chat IDs in whitelist. Not sending the message.')
+
 
 def handle(msg):
     chat_id = msg['chat']['id']
