@@ -13,16 +13,22 @@ CHAT_ID_FILE = '/usr/local/bin/tgbot/chat_ids.txt'
 # Load the whitelist
 def load_whitelist():
     with open(CHAT_ID_FILE, 'r') as f:
-        return {line.strip() for line in f}
+        # Filtering out any empty lines or lines with only spaces
+        return {line.strip() for line in f if line.strip()}
 
 whitelist = load_whitelist()
 
 def send_message_to_all_users(message):
     if whitelist:  # Check if whitelist is not empty
         for chat_id in whitelist:
-            bot.sendMessage(chat_id, message)
+            # Additional check before sending the message
+            if chat_id:
+                bot.sendMessage(chat_id, message)
+            else:
+                syslog.syslog('Encountered an empty chat ID. Skipping.')
     else:
         syslog.syslog('No chat IDs in whitelist. Not sending the message.')
+
 
 
 def handle(msg):
