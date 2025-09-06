@@ -5,7 +5,6 @@ A Python-based Telegram bot designed for personal server management and monitori
 ## Features
 
 ### System Commands
-- **`/roll`** - Roll a dice (1-6)
 - **`/time`** - Get current system time
 - **`/reboot`** - Stop VPN and reboot the system (with 2-second delay)
 - **`/network`** - Display network interfaces and IP addresses (internal and external)
@@ -103,7 +102,6 @@ A Python-based Telegram bot designed for personal server management and monitori
 
 ### Command Examples
 ```
-/roll          # Returns: 4
 /time          # Returns: 2024-01-15 14:30:25.123456
 /network       # Returns: Network interfaces and IP addresses
 /syslog        # Returns: Last 20 lines of system log

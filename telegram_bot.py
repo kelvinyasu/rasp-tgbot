@@ -6,7 +6,6 @@ import datetime
 import telepot
 import syslog
 import os
-import random
 
 # Your script's version number
 SCRIPT_VERSION = "0.31"
@@ -48,9 +47,7 @@ def log_chat_id(chat_id):
 def handle_command(command, chat_id):
     log_chat_id(chat_id)  # Log the chat ID
     
-    if command == '/roll':
-        return random.randint(1, 6)
-    elif command == '/time':
+    if command == '/time':
         return str(datetime.datetime.now())
     elif command == '/reboot':
         # Add a 2-second delay before rebooting
@@ -67,7 +64,7 @@ def handle_command(command, chat_id):
         return upgrade_bot()
     else:
         hostname = socket.gethostname()
-        return read_bot_motd() + f"\nUnknown command on {hostname}. Use /chatid, /roll, /time, /reboot, /network, /syslog, or /upgrade."
+        return read_bot_motd() + f"\nUnknown command on {hostname}. Use /chatid, /time, /reboot, /network, /syslog, or /upgrade."
 
 def get_network_info():
     interfaces = subprocess.check_output(['ip', 'addr', 'show']).decode('utf-8')
